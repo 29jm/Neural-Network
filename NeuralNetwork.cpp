@@ -24,13 +24,6 @@ NeuralNetwork::NeuralNetwork(const int nbi, const int nbh, const int nbo, const 
 
 	ci = makeMatrix(ni, nh);
 	co = makeMatrix(nh, no);
-
-	cout << "Number of inputs: " << ni << endl;
-	cout << "Number of hidden neuron layers: " << nh << endl;
-	cout << "Number of outputs: " << no << endl;
-
-	cout << "Size of input weights: " << wi.size() << endl;
-	cout << "Size of output weights:" << wo.size() << endl;
 }
 
 vector<vector<float>> NeuralNetwork::makeMatrix(const int width, const int height, const float fill) {
@@ -134,7 +127,7 @@ vector<vector<float>> NeuralNetwork::test(const vector<vector<vector<float>>>& p
 	vector<vector<float>> tmp;
 	for (const auto& p : patterns) {
 		if (verbose) {
-			// cout << p[0] << " -> " << update(p[0]);
+			cout << p[0][0] << " -> " << update(p[0])[0] << endl;
 		}
 
 		tmp.push_back(update(p[0]));

@@ -11,6 +11,6 @@ int main() {
 		{{1},{0}}
 	};
 
-	nn.train(pat, 10);
+	nn.train(pat, 1000);
 	nn.test(pat, true);
 }
