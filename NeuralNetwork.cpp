@@ -2,8 +2,8 @@
 
 using namespace std;
 
-NeuralNetwork::NeuralNetwork(const int ni, const int nh, const int no, const bool regression)
-	: ni(ni+1), nh(nh+1), no(no), regression(regression), ai(ni, 1.0), ah(nh, 1.0), ao(no, 1.0)
+NeuralNetwork::NeuralNetwork(const int nbi, const int nbh, const int nbo, const bool regression)
+	: ni(nbi+1), nh(nbh+1), no(nbo), regression(regression), ai(ni, 1.0), ah(nh, 1.0), ao(no, 1.0)
 {
 	wi = NeuralNetwork::makeMatrix(ni, nh);
 	wo = NeuralNetwork::makeMatrix(nh, no);
@@ -16,9 +16,9 @@ NeuralNetwork::NeuralNetwork(const int ni, const int nh, const int no, const boo
 		}
 	}
 
-	for (int i = 0; i < nh; i++) {
-		for (int j = 0; j < no; j++) {
-			wo[i][j] = dist(rng);
+	for (int j = 0; j < nh; j++) {
+		for (int k = 0; k < no; k++) {
+			wo[j][k] = dist(rng);
 		}
 	}
 
