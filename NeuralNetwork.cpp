@@ -3,7 +3,7 @@
 using namespace std;
 
 NeuralNetwork::NeuralNetwork(const int nbi, const int nbh, const int nbo, const bool regression)
-	: ni(nbi+1), nh(nbh+1), no(nbo), regression(regression), ai(ni, 1.0), ah(nh, 1.0), ao(no, 1.0)
+	: ni(nbi+1), nh(nbh+1), no(nbo), regression(regression), ai(ni, 1.0), ah(nh, 1.0), ao(no, 1.0), rng(time(nullptr))
 {
 	wi = NeuralNetwork::makeMatrix(ni, nh);
 	wo = NeuralNetwork::makeMatrix(nh, no);
@@ -127,7 +127,12 @@ vector<vector<float>> NeuralNetwork::test(const vector<vector<vector<float>>>& p
 	vector<vector<float>> tmp;
 	for (const auto& p : patterns) {
 		if (verbose) {
-			cout << p[0][0] << " -> " << update(p[0])[0] << endl;
+			cout << "{ ";
+			for (unsigned int i = 0; i < ni-1; i++) {
+				cout << p[0][i] << " ";
+			}
+			cout << "}";
+			cout << " -> " << update(p[0])[0] << endl;
 		}
 
 		tmp.push_back(update(p[0]));

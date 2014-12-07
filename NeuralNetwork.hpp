@@ -2,6 +2,7 @@
 #define NEURALNETWORK_H
 
 #include <cmath>
+#include <cstdlib>
 #include <random>
 #include <vector>
 #include <string>
