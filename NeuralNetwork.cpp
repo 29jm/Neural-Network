@@ -44,36 +44,36 @@ float NeuralNetwork::dsigmoid(const float y) {
 }
 
 vector<float> NeuralNetwork::update(const vector<float>& inputs) {
-		if (inputs.size() != ni-1) {
-			throw string("wrong number of inputs");
+	if (inputs.size() != ni-1) {
+		throw string("wrong number of inputs");
+	}
+
+	for (unsigned int i = 0; i < ni-1; i++) {
+		ai[i] = inputs[i];
+	}
+
+	for (unsigned int j = 0; j < nh-1; j++) {
+		float total = 0.0;
+		for (int i = 0; i < ni; i++) {
+			total += ai[i] * wi[i][j];
 		}
 
-		for (unsigned int i = 0; i < ni-1; i++) {
-			ai[i] = inputs[i];
+		ah[j] = sigmoid(total);
+	}
+
+	for (unsigned int k = 0; k < no; k++) {
+		float total = 0.0;
+		for (unsigned int j = 0; j < nh; j++) {
+			total += ah[j] * wo[j][k];
 		}
 
-		for (unsigned int j = 0; j < nh-1; j++) {
-			float total = 0.0;
-			for (int i = 0; i < ni; i++) {
-				total += ai[i] * wi[i][j];
-			}
-
-			ah[j] = sigmoid(total);
+		ao[k] = total;
+		if (!regression) {
+			ao[k] = sigmoid(total);
 		}
-
-		for (unsigned int k = 0; k < no; k++) {
-			float total = 0.0;
-			for (unsigned int j = 0; j < nh; j++) {
-				total += ah[j] * wo[j][k];
-			}
-
-			ao[k] = total;
-			if (!regression) {
-				ao[k] = sigmoid(total);
-			}
-		}
-			
-		return ao;
+	}
+		
+	return ao;
 }
 
 float NeuralNetwork::backPropagate(const vector<float>& targets, const float lr, const float mf) {
